@@ -16,3 +16,14 @@
 - Import Param from the @nestjs/common package.
 - In NestJS, route params always come as string by default.
 
+### Services
+- Services are used to implement the business logic of the application.
+- Services are injected into controllers.
+- Services are singletons.
+- Services are created using the @Injectable() decorator.
+
+`nest g s cats`
+
+## Inject Service to Controller
+- The CatsService is injected through the class constructor. 
+- The private keyword, is a shorthand allows to both declare and initialize the variable at the same time.

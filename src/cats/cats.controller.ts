@@ -1,30 +1,35 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
-  private cats: string[] = ['cat1', 'cat2', 'cat3'];
+  constructor(private readonly catsService: CatsService) {}
 
   @Get()
   findAll(): string[] {
-    return this.cats;
+    return this.catsService.getAll();
   }
 
-  // Param Object
-  /*  
-    @Get(':id')
-    findOne(@Param() param: any): string {
-        console.log(param);
-
-        const id = param.id;
-        return this.cats[id];
-    }
-*/
-  // Specific Param
   @Get(':id')
-  findOne(@Param('id') id: string): string {
+  findOne(@Param('id') id: any) {
     console.log(typeof id);
 
-    return this.cats[id];
+    return this.catsService.getById(id);
+  }
+  
+  @Post()
+  create(@Body() body: any) {
+    return this.catsService.create(body);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: any, @Body() name: string) {
+    return this.catsService.update(id, name);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: any) {
+    return this.catsService.delete(id);
   }
 
 }
