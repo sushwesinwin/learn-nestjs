@@ -27,3 +27,12 @@
 ## Inject Service to Controller
 - The CatsService is injected through the class constructor. 
 - The private keyword, is a shorthand allows to both declare and initialize the variable at the same time.
+
+## Interfaces
+- Interfaces are used to define the shape of an object.
+
+## Pipes
+- Pipes are used to transform or validate the data.
+
+## ParseIntPipe
+- ParseIntPipe is a built-in pipe that transforms a value to a number.

@@ -1,34 +1,35 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CatsService } from './cats.service';
+import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get()
-  findAll(): string[] {
+  findAll(): Cat[] {
     return this.catsService.getAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: any) {
+  findOne(@Param('id', ParseIntPipe) id: any) {
     console.log(typeof id);
 
     return this.catsService.getById(id);
   }
-  
+    
   @Post()
   create(@Body() body: any) {
     return this.catsService.create(body);
   }
 
   @Put(':id')
-  update(@Param('id') id: any, @Body() name: string) {
-    return this.catsService.update(id, name);
+  update(@Param('id', ParseIntPipe) id: any, @Body() body: any) {
+    return this.catsService.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: any) {
+  delete(@Param('id', ParseIntPipe) id: any) {
     return this.catsService.delete(id);
   }
 
