@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { CreateCatDto } from './dto/create.cat.dto';
+import { UpdateCatDto } from './dto/update.cat.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -17,15 +19,19 @@ export class CatsController {
 
     return this.catsService.getById(id);
   }
-    
-  @Post()
-  create(@Body() body: any) {
-    return this.catsService.create(body);
-  }
 
+  @Post()
+  create(@Body() createCatDto: CreateCatDto) {
+    return this.catsService.create(createCatDto);
+  }
+  
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: any, @Body() body: any) {
-    return this.catsService.update(id, body);
+  update(
+      @Param('id', ParseIntPipe) id: number, 
+      @Body() updateCatDto: UpdateCatDto
+    ) {
+    this.catsService.update(id, updateCatDto);
+    return this.catsService.getAll()
   }
 
   @Delete(':id')

@@ -36,3 +36,16 @@
 
 ## ParseIntPipe
 - ParseIntPipe is a built-in pipe that transforms a value to a number.
+
+## DTO Data Transfer Object
+- DTOs are used to validate the data.
+
+Step 1: Install Required Packages
+`npm i class-validator class-transformer`
+Step 2: Create a Basic DTO
+Step 3: Use the DTO in a Controller
+Step 4: Enable Global Validation
+
+### Partial Type - TS
+- A built-in TypeScript utility type that changes all properties of a type to optional.
+

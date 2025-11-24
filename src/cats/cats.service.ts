@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cat } from './interfaces/cat.interface';
+import { UpdateCatDto } from './dto/update.cat.dto';
 
 @Injectable()
 export class CatsService {
@@ -9,21 +10,25 @@ export class CatsService {
     { name: 'cat3', age: 3, breed: 'breed3' },
   ];
 
-  getAll() {
+  getAll(): Cat[] {
     return this.cats;
   }
 
-  getById(id: number) {
+  getById(id: number): Cat {
     return this.cats[id];
   }
 
-  create(cat: Cat) {
+  create(cat: Cat): Cat[] {
     this.cats.push(cat);
     return this.cats;
   }
 
-  update(id: number, cat: Cat) {
-    this.cats[id] = cat;
+  // Partial update
+  update(id: number, updateCatDto: UpdateCatDto) {
+    this.cats[id] = {
+      ...this.cats[id],
+      ...updateCatDto,
+    };
     return this.cats;
   }
 
