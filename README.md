@@ -49,3 +49,7 @@ Step 4: Enable Global Validation
 ### Partial Type - TS
 - A built-in TypeScript utility type that changes all properties of a type to optional.
 
+### Module
+- Modules are used to organize the application into smaller, reusable, and maintainable pieces.
+
+`nest g mo cats`
