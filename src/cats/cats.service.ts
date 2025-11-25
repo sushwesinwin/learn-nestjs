@@ -1,39 +1,41 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CatEntity } from './entity/cat.entity';
 import { Cat } from './interfaces/cat.interface';
 import { UpdateCatDto } from './dto/update.cat.dto';
 
 @Injectable()
 export class CatsService {
-  private cats: Cat[] = [
-    { name: 'cat1', age: 1, breed: 'breed1' },
-    { name: 'cat2', age: 2, breed: 'breed2' },
-    { name: 'cat3', age: 3, breed: 'breed3' },
-  ];
+  constructor(
+    @InjectRepository(CatEntity)
+    private catsRepository: Repository<CatEntity>,
+  ) {}
 
-  getAll(): Cat[] {
-    return this.cats;
+  // Get all cats
+  async getAll(): Promise<CatEntity[]> {
+    return await this.catsRepository.find();
   }
 
-  getById(id: number): Cat {
-    return this.cats[id];
+  // Get one cat by id
+  async getById(id: number): Promise<CatEntity | null> {
+    return await this.catsRepository.findOne({ where: { id } });
   }
 
-  create(cat: Cat): Cat[] {
-    this.cats.push(cat);
-    return this.cats;
+  // Create a new cat
+  async create(cat: Cat): Promise<CatEntity> {
+    const newCat = this.catsRepository.create(cat);
+    return await this.catsRepository.save(newCat);
   }
 
   // Partial update
-  update(id: number, updateCatDto: UpdateCatDto) {
-    this.cats[id] = {
-      ...this.cats[id],
-      ...updateCatDto,
-    };
-    return this.cats;
+  async update(id: number, updateCatDto: UpdateCatDto): Promise<CatEntity | null> {
+    await this.catsRepository.update(id, updateCatDto);
+    return this.getById(id); // return updated cat
   }
 
-  delete(id: number) {
-    this.cats.splice(id, 1);
-    return this.cats;
+  // Delete cat
+  async delete(id: number): Promise<void> {
+    await this.catsRepository.delete(id);
   }
 }

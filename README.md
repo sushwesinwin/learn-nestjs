@@ -53,3 +53,15 @@ Step 4: Enable Global Validation
 - Modules are used to organize the application into smaller, reusable, and maintainable pieces.
 
 `nest g mo cats`
+
+### Database
+
+TypeORM
+1. Install required packages
+`npm i @nestjs/typeorm typeorm mysql2`
+2. Create a database in MySQL
+3. Configure TypeORM in app.module.ts
+4. Create an Entity (table)
+5. Register entity in Module
+6. Inject Repository in Service
+

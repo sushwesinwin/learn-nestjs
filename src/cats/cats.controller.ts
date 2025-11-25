@@ -9,24 +9,24 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get()
-  findAll(): Cat[] {
+  async findAll(): Promise<Cat[]> {
     return this.catsService.getAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: any) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     console.log(typeof id);
 
     return this.catsService.getById(id);
   }
 
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
+  async create(@Body() createCatDto: CreateCatDto) {
     return this.catsService.create(createCatDto);
   }
   
   @Put(':id')
-  update(
+  async update(
       @Param('id', ParseIntPipe) id: number, 
       @Body() updateCatDto: UpdateCatDto
     ) {
@@ -35,7 +35,7 @@ export class CatsController {
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: any) {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     return this.catsService.delete(id);
   }
 
