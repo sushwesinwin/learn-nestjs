@@ -14,7 +14,7 @@ import { CatEntity } from './cats/entity/cat.entity';
       username: 'root',
       password: '',
       database: 'learnnestdb',
-      entities: [CatEntity],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     CatsModule,

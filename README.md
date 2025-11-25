@@ -65,3 +65,9 @@ TypeORM
 5. Register entity in Module
 6. Inject Repository in Service
 
+## Automatically load all TypeORM entity files
+`entities: [__dirname + '/**/*.entity{.ts,.js}'],`
+- to avoid manually listing every entity in the TypeOrmModule.forRoot() configuration.
+__dirname: Refers to the current file's directory (e.g., src/ in dev, dist/ in prod).
+/**/: Recursively searches all subdirectories.
+{.ts,.js}: Matches both source and compiled files for dev/prod compatibility.
